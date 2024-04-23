@@ -18,22 +18,32 @@ function reducer(state, action) {
   }
 }
 
-const FAKE_USER = {
-  name: "Jack",
-  email: "jack@example.com",
-  password: "qwerty",
-  avatar: "https://i.pravatar.cc/100?u=123",
-};
-
 function AuthProvider({ children }) {
   const [{ user, isAuthenticated }, dispatch] = useReducer(
     reducer,
     initialState
   );
 
-  function login(email, password) {
-    if (email === FAKE_USER.email && password === FAKE_USER.password)
-      dispatch({ type: "login", payload: FAKE_USER });
+  async function login(username, password) {
+    try {
+      const response = await fetch("http://192.168.1.2:3333/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        dispatch({ type: "login", payload: data.user });
+      } else {
+        console.error(data.error);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    }
   }
 
   function logout() {
