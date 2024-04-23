@@ -1,25 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import Map from "../components/Map";
+import PlacesPhotos from "../components/PlacesPhotos";
 
-const PlaceDetailsScreen = ({ route }) => {
-  const { sightseeingId } = route.params;
+const PlaceDetails = ({ route }) => {
+  const { placeId } = route.params;
   const [placeDetails, setPlaceDetails] = useState(null);
+  const [coordinates, setCoordinates] = useState({ latitude: 0, longitude: 0 });
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
       try {
         const response = await fetch(
-          `http://192.168.1.2:3333/locations/${sightseeingId}`
+          `http://192.168.1.2:3333/locations/${placeId}`
         );
         const data = await response.json();
         setPlaceDetails(data);
+
+        const [latitude, longitude] = data.coordinates
+          .split(",")
+          .map(parseFloat);
+        setCoordinates({ latitude, longitude });
       } catch (error) {
         console.error("Error fetching place details: ", error);
       }
     };
 
     fetchPlaceDetails();
-  }, [sightseeingId]);
+  }, [placeId]);
 
   if (!placeDetails) {
     return (
@@ -33,8 +41,9 @@ const PlaceDetailsScreen = ({ route }) => {
     <View style={styles.container}>
       <Text style={styles.title}>{placeDetails.name}</Text>
       <Text>{placeDetails.description}</Text>
-      <Text>Coordinates: {placeDetails.coordinates}</Text>
-      {/* Другие данные о месте */}
+      <Map coordinates={coordinates} />
+
+      <PlacesPhotos locationId={placeId} />
     </View>
   );
 };
@@ -42,14 +51,13 @@ const PlaceDetailsScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
   },
 });
 
-export default PlaceDetailsScreen;
+export default PlaceDetails;
