@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const PlacesList = ({ categoryId }) => {
   const navigation = useNavigation();
-  const [sightseeings, setSightseeings] = useState([]);
+  const [places, setplaces] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +21,7 @@ const PlacesList = ({ categoryId }) => {
         const filteredData = data.filter(
           (item) => item.CategoryId === categoryId
         );
-        setSightseeings(filteredData);
+        setplaces(filteredData);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -30,12 +30,12 @@ const PlacesList = ({ categoryId }) => {
     fetchData();
   }, [categoryId]);
 
-  const handleSightseeingPress = (sightseeing) => {
-    navigation.navigate("PlaceDetails", { sightseeingId: sightseeing.id });
+  const handleplacePress = (place) => {
+    navigation.navigate("PlaceDetails", { placeId: place.id });
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleSightseeingPress(item)}>
+    <TouchableOpacity onPress={() => handleplacePress(item)}>
       <View style={styles.item}>
         <Text style={styles.title}>{item.name}</Text>
         <Text>{item.description}</Text>
@@ -46,7 +46,7 @@ const PlacesList = ({ categoryId }) => {
 
   return (
     <FlatList
-      data={sightseeings}
+      data={places}
       renderItem={renderItem}
       keyExtractor={(item) => item.id.toString()}
     />
