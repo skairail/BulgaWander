@@ -4,10 +4,10 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  Image,
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Chip } from "react-native-paper";
 
 const Categories = () => {
   const [categories, setCategories] = useState([]);
@@ -26,20 +26,16 @@ const Categories = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Categories</Text>
-      </View>
-      <ScrollView horizontal>
+      <Text style={styles.title}>Categories</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {categories.map((category) => (
           <TouchableOpacity
             key={category.id}
             onPress={() => handleCategoryPress(category)}
-            style={styles.categoryItem}
           >
-            {category.icon && (
-              <Image source={{ uri: category.icon }} style={styles.icon} />
-            )}
-            <Text>{category.name}</Text>
+            <Chip style={styles.chip} textStyle={styles.chipText}>
+              {category.name}
+            </Chip>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -50,26 +46,24 @@ const Categories = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginLeft: 10,
     marginTop: 10,
   },
-  categoryItem: {
-    padding: 10,
-    height: 50,
-    margin: 5,
-    backgroundColor: "white",
-    borderRadius: 5,
-    flexDirection: "row",
-    alignItems: "center",
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginLeft: 10,
+    marginBottom: 20,
   },
-  icon: {
-    width: 20,
-    height: 20,
-    marginRight: 5,
+  chip: {
+    marginHorizontal: 10,
+    backgroundColor: "lightgray",
+
+    fontSize: 48,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  chipText: {
+    fontSize: 18,
   },
 });
 
