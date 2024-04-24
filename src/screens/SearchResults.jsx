@@ -6,7 +6,6 @@ import { useRoute } from "@react-navigation/native";
 function SearchResults() {
   const route = useRoute();
   const { placeIds } = route.params;
-  //   console.log(placeIds);
   return (
     <View style={styles.container}>
       <PlacesList placeIds={placeIds} />

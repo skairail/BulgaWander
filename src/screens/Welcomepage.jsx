@@ -1,8 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import PageNav from "../components/PageNav/PageNav";
+import Logo from "../components/Logo/Logo";
 
 const Welcomepage = () => {
   const navigation = useNavigation();
@@ -12,36 +18,49 @@ const Welcomepage = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <PageNav />
-      <View style={styles.content}>
-        <Text style={styles.title}>
-          Let's discover together the beauty of Bulgaria!
-        </Text>
-        <Text style={styles.description}>
-          This application will help you learn about the most beautiful and
-          interesting places in Bulgaria!
-        </Text>
-        <TouchableOpacity
-          style={styles.ctaButton}
-          onPress={handleStartTracking}
-        >
-          <Text style={styles.ctaText}>Start</Text>
-        </TouchableOpacity>
+    <ImageBackground
+      source={require("../assets/bg.jpg")}
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <View style={styles.content}>
+          <Text style={styles.logo}>
+            <Logo /> {/* Логотип вынесен за пределы области затемнения */}
+          </Text>
+          <Text style={styles.title}>
+            Let's discover together the beauty of Bulgaria!
+          </Text>
+          <Text style={styles.description}>
+            This application will help you learn about the most beautiful and
+            interesting places in Bulgaria!
+          </Text>
+          <TouchableOpacity
+            style={styles.ctaButton}
+            onPress={handleStartTracking}
+          >
+            <Text style={styles.ctaText}>Start</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  logo: {
+    bottom: 200,
+  },
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    justifyContent: "center",
   },
   content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     paddingHorizontal: 20,
   },
   title: {
@@ -49,17 +68,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 20,
+    color: "white",
   },
   description: {
     fontSize: 18,
     textAlign: "center",
     marginBottom: 20,
+    color: "white",
   },
   ctaButton: {
-    backgroundColor: "#007bff",
+    backgroundColor: "lightgreen",
     paddingVertical: 12,
     paddingHorizontal: 30,
     borderRadius: 5,
+    alignSelf: "center",
   },
   ctaText: {
     color: "#ffffff",

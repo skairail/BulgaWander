@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import LocationPhotos from "./PlacesPhotos";
 import { useFocusEffect } from "@react-navigation/native";
 
 const SavedPlaces = () => {
+  const navigation = useNavigation();
   const [savedPlaces, setSavedPlaces] = useState([]);
   const [twoColumns, setTwoColumns] = useState(false);
 
@@ -25,9 +34,11 @@ const SavedPlaces = () => {
     }
   };
 
-  useEffect(() => {
-    fetchSavedPlaces();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchSavedPlaces();
+    }, [])
+  );
 
   useEffect(() => {
     if (savedPlaces.length > 4) {
@@ -37,16 +48,22 @@ const SavedPlaces = () => {
     }
   }, [savedPlaces]);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchSavedPlaces();
-    }, [])
-  );
+  const handlePress = (itemId) => {
+    navigation.navigate("PlaceDetails", { placeId: itemId });
+  };
+  const formatPlaceName = (name) => {
+    return name.replace(/([a-z])([A-Z])/g, "$1 $2");
+  };
 
   const renderBlock = ({ item }) => (
-    <View style={styles.block}>
-      <Text style={styles.blockText}>{item.name}</Text>
-    </View>
+    <TouchableOpacity style={styles.block} onPress={() => handlePress(item.id)}>
+      <LocationPhotos
+        locationId={item.id}
+        renderSinglePhoto={true}
+        miniature={true}
+      />
+      <Text style={styles.blockText}>{formatPlaceName(item.name)}</Text>
+    </TouchableOpacity>
   );
 
   return (
@@ -75,27 +92,25 @@ const SavedPlaces = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    paddingTop: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
   },
   block: {
-    width: "45%",
-    aspectRatio: 1,
-    backgroundColor: "#f9c2ff",
-    padding: 20,
-    margin: 10,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    marginBottom: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: "#f0f0f0",
   },
   blockText: {
-    fontSize: 16,
-    textAlign: "center",
+    marginLeft: 10,
+    fontSize: 24,
   },
 });
 

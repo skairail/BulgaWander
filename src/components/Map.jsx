@@ -33,9 +33,10 @@ const Map = ({ coordinates }) => {
 
 const styles = StyleSheet.create({
   mapContainer: {
-    width: "100%",
-    height: 200,
+    width: 360,
+    height: 350,
     marginBottom: 10,
+    borderRadius: 15,
   },
   map: {
     ...StyleSheet.absoluteFillObject,

@@ -20,8 +20,14 @@ const Login = () => {
     if (email && password) login(email, password);
   };
 
+  const handleRegister = () => {
+    navigation.navigate("Register");
+  };
+
   return (
     <View style={styles.container}>
+      <Text style={styles.logo}>BulgaWander</Text>
+
       <View style={styles.form}>
         <View style={styles.row}>
           <Text>Email address</Text>
@@ -46,6 +52,12 @@ const Login = () => {
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleRegister}>
+          <Text style={styles.registerText}>
+            Don't have an account? Register here
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -56,6 +68,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  logo: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
   },
   form: {
     width: "80%",
@@ -71,7 +88,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   button: {
-    backgroundColor: "#007bff",
+    backgroundColor: "lightgreen",
     borderRadius: 5,
     padding: 12,
     alignItems: "center",
@@ -79,6 +96,11 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  registerText: {
+    color: "blue",
+    textAlign: "center",
+    marginTop: 10,
   },
 });
 

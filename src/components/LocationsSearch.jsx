@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,6 +25,7 @@ const LocationSearch = () => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.bigText}>Where do you want to go today?</Text>
       <Searchbar
         placeholder="Search locations..."
         value={searchQuery}
@@ -37,8 +38,14 @@ const LocationSearch = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     paddingHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
+  bigText: {
+    fontSize: 40,
+    fontWeight: "bold",
+    marginBottom: 10,
     paddingTop: 10,
     paddingBottom: 20,
   },
