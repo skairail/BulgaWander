@@ -8,34 +8,45 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const PlacesList = ({ categoryId }) => {
+const PlacesList = ({ categoryId, placeIds }) => {
   const navigation = useNavigation();
-  const [places, setplaces] = useState([]);
+  const [places, setPlaces] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://192.168.1.2:3333/locations");
+        let url = "http://192.168.1.2:3333/locations";
+
+        const response = await fetch(url);
         const data = await response.json();
 
-        const filteredData = data.filter(
-          (item) => item.CategoryId === categoryId
-        );
-        setplaces(filteredData);
+        if (categoryId) {
+          const filteredData = data.filter(
+            (item) => item.CategoryId === categoryId
+          );
+          setPlaces(filteredData);
+        } else if (placeIds && placeIds.length > 0) {
+          const filteredData = data.filter((item) =>
+            placeIds.includes(item.id)
+          );
+          setPlaces(filteredData);
+        } else {
+          setPlaces(data);
+        }
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
 
     fetchData();
-  }, [categoryId]);
+  }, [categoryId, placeIds]);
 
-  const handleplacePress = (place) => {
+  const handlePlacePress = (place) => {
     navigation.navigate("PlaceDetails", { placeId: place.id });
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handleplacePress(item)}>
+    <TouchableOpacity onPress={() => handlePlacePress(item)}>
       <View style={styles.item}>
         <Text style={styles.title}>{item.name}</Text>
         <Text>{item.description}</Text>
