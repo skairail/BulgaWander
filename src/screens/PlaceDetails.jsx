@@ -111,14 +111,31 @@ const PlaceDetails = ({ route }) => {
     );
   }
 
+  const formatPlaceName = (name) => {
+    return name.replace(/([a-z])([A-Z])/g, "$1 $2");
+  };
+
+  const formatPlaceDescription = (description) => {
+    const paragraphs = description.split("\n");
+
+    const formattedParagraphs = paragraphs.map((paragraph, index) => (
+      <Text key={index} style={styles.descriptionParagraph}>
+        {paragraph}
+      </Text>
+    ));
+    return formattedParagraphs;
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>{placeDetails.name}</Text>
-        <Text style={styles.description}>{placeDetails.description}</Text>
-        <View style={styles.mapContainer}>
-          <Map coordinates={coordinates} />
-        </View>
+        <View style={styles.photosContainer}></View>
+        <PlacesPhotos locationId={placeDetails.id} renderSinglePhoto={true} />
+        <Text style={styles.title}>{formatPlaceName(placeDetails.name)}</Text>
+        <Text style={styles.description}>
+          {formatPlaceDescription(placeDetails.description)}
+        </Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Photos</Text>
         <View style={styles.photosContainer}>
           <PlacesPhotos locationId={placeDetails.id} />
         </View>
@@ -130,6 +147,9 @@ const PlaceDetails = ({ route }) => {
             style={styles.button}
             contentStyle={styles.buttonContent}
           />
+        </View>
+        <View style={styles.mapContainer}>
+          <Map coordinates={coordinates} />
         </View>
       </View>
     </ScrollView>
@@ -159,6 +179,7 @@ const styles = StyleSheet.create({
   },
   photosContainer: {
     marginBottom: 20,
+    position: "relative",
   },
   buttonContainer: {
     alignItems: "center",

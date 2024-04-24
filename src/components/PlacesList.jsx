@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  Text,
   FlatList,
   TouchableOpacity,
+  Text,
   StyleSheet,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import PlacesPhotos from "./PlacesPhotos";
 
 const PlacesList = ({ categoryId, placeIds }) => {
   const navigation = useNavigation();
@@ -16,7 +17,6 @@ const PlacesList = ({ categoryId, placeIds }) => {
     const fetchData = async () => {
       try {
         let url = "http://192.168.1.2:3333/locations";
-
         const response = await fetch(url);
         const data = await response.json();
 
@@ -45,12 +45,18 @@ const PlacesList = ({ categoryId, placeIds }) => {
     navigation.navigate("PlaceDetails", { placeId: place.id });
   };
 
+  const formatPlaceName = (name) => {
+    return name.replace(/([a-z])([A-Z])/g, "$1 $2");
+  };
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => handlePlacePress(item)}>
-      <View style={styles.item}>
-        <Text style={styles.title}>{item.name}</Text>
-        <Text>{item.description}</Text>
-        <Text>Coordinates: {item.coordinates}</Text>
+    <TouchableOpacity
+      onPress={() => handlePlacePress(item)}
+      style={styles.item}
+    >
+      <PlacesPhotos locationId={item.id} renderSinglePhoto={true} />
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{formatPlaceName(item.name)}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -66,14 +72,27 @@ const PlacesList = ({ categoryId, placeIds }) => {
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: "#f9c2ff",
-    padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  titleContainer: {
+    position: "absolute",
+    bottom: 15,
+    left: 0,
+    right: 0,
+
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   title: {
-    fontSize: 16,
+    fontSize: 38,
     fontWeight: "bold",
+    color: "white",
   },
 });
 
