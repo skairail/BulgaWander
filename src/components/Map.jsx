@@ -11,8 +11,8 @@ const Map = ({ coordinates }) => {
         initialRegion={{
           latitude: coordinates.latitude,
           longitude: coordinates.longitude,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
+          // latitudeDelta: 0.01,
+          // longitudeDelta: 0.01,
         }}
         onPress={(event) => {
           const { latitude, longitude } = event.nativeEvent.coordinate;
@@ -33,7 +33,7 @@ const Map = ({ coordinates }) => {
 
 const styles = StyleSheet.create({
   mapContainer: {
-    width: 360,
+    width: "100%",
     height: 350,
     marginBottom: 10,
     borderRadius: 15,

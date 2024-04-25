@@ -9,7 +9,6 @@ import PlaceDetails from "./screens/PlaceDetails";
 
 import Login from "./screens/Login";
 import Homepage from "./screens/Homepage";
-import PageNotFound from "./screens/PageNotFound";
 import Category from "./screens/Category";
 import SearchResults from "./screens/SearchResults";
 import Register from "./screens/Register";
@@ -24,12 +23,10 @@ function App() {
           <Stack.Navigator>
             <Stack.Screen name="Welcomepage" component={Welcomepage} />
             <Stack.Screen name="Register" component={Register} />
-
             <Stack.Screen name="Category" component={Category} />
             <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Homepage" component={Homepage} />
-            <Stack.Screen name="PageNotFound" component={PageNotFound} />
             <Stack.Screen name="SearchResults" component={SearchResults} />
           </Stack.Navigator>
         </NavigationContainer>

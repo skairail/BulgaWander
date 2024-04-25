@@ -7,7 +7,6 @@ import {
   ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import PageNav from "../components/PageNav/PageNav";
 import Logo from "../components/Logo/Logo";
 
 const Welcomepage = () => {
@@ -25,7 +24,7 @@ const Welcomepage = () => {
       <View style={styles.container}>
         <View style={styles.content}>
           <Text style={styles.logo}>
-            <Logo /> {/* Логотип вынесен за пределы области затемнения */}
+            <Logo />
           </Text>
           <Text style={styles.title}>
             Let's discover together the beauty of Bulgaria!

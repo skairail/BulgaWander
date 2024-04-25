@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Button, ScrollView } from "react-native";
 import Map from "../components/Map";
 import PlacesPhotos from "../components/PlacesPhotos";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import addPlaceToSavedPlaces from "./addPlaceToSavedPlaces";
+import addPlaceToSavedPlaces from "../utils/addPlaceToSavedPlaces";
 
 const PlaceDetails = ({ route }) => {
   const { placeId } = route.params;

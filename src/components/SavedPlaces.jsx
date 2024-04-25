@@ -70,7 +70,9 @@ const SavedPlaces = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Saved Places</Text>
       {savedPlaces.length === 0 ? (
-        <Text>No saved places</Text>
+        <Text style={styles.subtitle}>
+          No saved places. Time to start a new adventure list!
+        </Text>
       ) : twoColumns ? (
         <FlatList
           data={savedPlaces}
@@ -111,6 +113,10 @@ const styles = StyleSheet.create({
   blockText: {
     marginLeft: 10,
     fontSize: 24,
+  },
+  subtitle: {
+    flex: 1,
+    fontSize: 15,
   },
 });
 
