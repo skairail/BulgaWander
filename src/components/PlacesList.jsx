@@ -16,7 +16,7 @@ const PlacesList = ({ categoryId, placeIds }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let url = "http://192.168.1.2:3333/locations";
+        let url = "http://localhost3333/locations";
         const response = await fetch(url);
         const data = await response.json();
 

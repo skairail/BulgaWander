@@ -19,14 +19,11 @@ const SavedPlaces = () => {
   const fetchSavedPlaces = async () => {
     try {
       const authToken = await AsyncStorage.getItem("authToken");
-      const response = await fetch(
-        "http://192.168.1.2:3333/user/saved-places",
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
+      const response = await fetch("http://localhost3333/user/saved-places", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
       const data = await response.json();
       setSavedPlaces(data);
     } catch (error) {

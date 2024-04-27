@@ -17,7 +17,7 @@ const PlaceDetails = ({ route }) => {
     const fetchPlaceDetails = async () => {
       try {
         const response = await fetch(
-          `http://192.168.1.2:3333/locations/${placeId}`
+          `http://localhost:3333/locations/${placeId}`
         );
         const data = await response.json();
         setPlaceDetails(data);
@@ -81,7 +81,7 @@ const PlaceDetails = ({ route }) => {
       }
 
       const response = await fetch(
-        `http://192.168.1.2:3333/user/saved-places/${placeId}`,
+        `http://localhost3333/user/saved-places/${placeId}`,
         {
           method: "DELETE",
           headers: {

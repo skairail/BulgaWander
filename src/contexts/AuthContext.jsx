@@ -27,7 +27,7 @@ function AuthProvider({ children }) {
 
   async function login(username, password) {
     try {
-      const response = await fetch("http://192.168.1.2:3333/login", {
+      const response = await fetch("http://localhost3333/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

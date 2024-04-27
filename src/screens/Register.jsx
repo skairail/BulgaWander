@@ -17,7 +17,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("http://your-server-address/register", {
+      const response = await fetch("http://localhost3333/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -17,7 +17,7 @@ const PlacesPhotos = ({ locationId, renderSinglePhoto, miniature }) => {
     const fetchPhotos = async () => {
       try {
         const response = await fetch(
-          `http://192.168.1.2:3333/locations/${locationId}/photos`
+          `http://localhost3333/locations/${locationId}/photos`
         );
         const jsonData = await response.json();
 
@@ -151,7 +151,7 @@ export default PlacesPhotos;
 //     const fetchPhotos = async () => {
 //       try {
 //         const response = await fetch(
-//           `http://192.168.1.2:3333/locations/${locationId}/photos`
+//           `http://localhost3333/locations/${locationId}/photos`
 //         );
 //         const jsonData = await response.json();
 

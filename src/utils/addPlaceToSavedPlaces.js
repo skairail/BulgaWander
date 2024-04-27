@@ -8,7 +8,7 @@ async function addPlaceToSavedPlaces(placeId) {
             return;
         }
 
-        const response = await fetch('http://192.168.1.2:3333/user/saved-places', {
+        const response = await fetch('http://localhost3333/user/saved-places', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

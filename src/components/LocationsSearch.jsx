@@ -9,7 +9,7 @@ const LocationSearch = () => {
 
   const handleSearch = async () => {
     try {
-      const response = await fetch("http://192.168.1.2:3333/locations");
+      const response = await fetch("http://localhost3333/locations");
       const data = await response.json();
 
       const filteredLocations = data.filter((location) =>

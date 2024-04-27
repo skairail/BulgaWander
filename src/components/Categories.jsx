@@ -14,7 +14,7 @@ const Categories = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    fetch("http://192.168.1.2:3333/categories")
+    fetch("http://localhost3333/categories")
       .then((response) => response.json())
       .then((data) => setCategories(data))
       .catch((error) => console.error("Error fetching categories:", error));
